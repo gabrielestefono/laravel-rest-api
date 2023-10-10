@@ -11,10 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('testamentos', function (Blueprint $table) {
+        Schema::create('versiculos', function (Blueprint $table) {
             $table->id();
-            $table->string('nome')->unique();
+            $table->integer('capitulo');
+            $table->integer('versiculo');
+            $table->string('texto_versiculo');
+            $table->unsignedBigInteger('livro_id');
             $table->timestamps();
+
+            $table->foreign('livro_id')->references('id')->on('livros');
         });
     }
 
@@ -23,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('testamentos');
+        Schema::dropIfExists('versiculos');
     }
 };
