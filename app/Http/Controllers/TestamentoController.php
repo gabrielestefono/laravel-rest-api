@@ -20,7 +20,11 @@ class TestamentoController extends Controller
      */
     public function store(Request $request)
     {
-        return Testamento::create($request->all());
+        if(Testamento::create($request->all())){
+            return response()->json(['message' => 'Testamento cadastrado com sucesso!'], 200);
+        }else{
+            return response()->json(['message' => 'Erro ao cadastrar testamento!'], 404);
+        }
     }
 
     /**
@@ -28,7 +32,12 @@ class TestamentoController extends Controller
      */
     public function show(string $testamento)
     {
-        return Testamento::findOrFail($testamento);
+        $testamento = Testamento::find($testamento);
+        if(!empty($testamento)){
+            return $testamento;
+        }else{
+            return response()->json(['message' => 'Testamento não encontrado!'], 404);
+        }
     }
 
     /**
@@ -36,11 +45,14 @@ class TestamentoController extends Controller
      */
     public function update(Request $request, string $testamento)
     {
-        $testamento = Testamento::findOrFail($testamento);
+        $testamento = Testamento::find($testamento);
 
-        $testamento->update($request->all());
-
-        return $testamento;
+        if($testamento){
+            $testamento->update($request->all());
+            return $testamento;
+        }else{
+            return response()->json(['message' => 'Erro ao atualizar testamento!'], 404);
+        }
     }
 
     /**
@@ -48,6 +60,10 @@ class TestamentoController extends Controller
      */
     public function destroy(string $testamento)
     {
-        return Testamento::destroy($testamento);
+        if(Testamento::destroy($testamento)){
+            return response()->json(['message' => 'Testamento deletado com sucesso!'], 200);
+        }else{
+            return response()->json(['message' => 'Erro ao deletar testamento!'], 404);
+        }
     }
 }

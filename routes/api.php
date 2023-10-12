@@ -41,9 +41,9 @@ use Illuminate\Support\Facades\Route;
 // Route::apiResource('/versiculo', VersiculoController::class);
 
 Route::apiResources([
-    TestamentoController::class,
-    LivroController::class,
-    VersiculoController::class,
+    'testamento' => TestamentoController::class,
+    'livro' => LivroController::class,
+    'versiculo' => VersiculoController::class,
 ]);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
