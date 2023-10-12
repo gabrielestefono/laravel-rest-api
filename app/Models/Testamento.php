@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Testamento extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['nome'];
+
 }
